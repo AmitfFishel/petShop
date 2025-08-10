@@ -1,4 +1,6 @@
 const persistModule = require('./persist_module');
+const path = require('path');
+
 
 const getActivities = async (req, res) => {
     try {
@@ -13,23 +15,28 @@ const getActivities = async (req, res) => {
 
 const addProduct = async (req, res) => {
     try {
-        const { name, description, price, category, stock } = req.body;
-        const image = req.file ? `/uploads/${req.file.filename}` : req.body.imageUrl;
+        const { name, description, price, category, stock, imageUrl } = req.body;
+        const image = req.file ? `/uploads/${req.file.filename}` : imageUrl;
         
-        if (!name || !description || !price) {
-            return res.status(400).json({ error: 'Name, description, and price required' });
+        if (!name || !description || !price || !category) {
+            return res.status(400).json({ error: 'Name, description, price, and category are required' });
         }
         
-        const product = await persistModule.addProduct({
+        const productData = {
             name,
             description,
             price: parseFloat(price),
-            category: category || 'General',
+            category,
             stock: parseInt(stock) || 10,
-            image
-        });
+            image: image || '/images/placeholder.jpg',
+            petInfo: {
+                category,
+                available: true
+            }
+        };
         
-        res.json({ message: 'Product added', product });
+        const product = await persistModule.addProduct(productData);
+        res.json({ message: 'Product added successfully', product });
     } catch (err) {
         console.error('Error adding product:', err);
         res.status(500).json({ error: 'Failed to add product' });
@@ -39,8 +46,13 @@ const addProduct = async (req, res) => {
 const removeProduct = async (req, res) => {
     try {
         const { id } = req.params;
+        
+        if (!id) {
+            return res.status(400).json({ error: 'Product ID required' });
+        }
+        
         await persistModule.removeProduct(id);
-        res.json({ message: 'Product removed' });
+        res.json({ message: 'Product removed successfully' });
     } catch (err) {
         console.error('Error removing product:', err);
         res.status(500).json({ error: 'Failed to remove product' });

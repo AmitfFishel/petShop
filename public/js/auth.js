@@ -1,11 +1,11 @@
 // Authentication functionality
-(function() {
+(function () {
     // Login form handler
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.onsubmit = async (e) => {
             e.preventDefault();
-            
+
             const formData = {
                 username: document.getElementById('username').value,
                 password: document.getElementById('password').value,
@@ -23,9 +23,12 @@
                 });
 
                 if (response.ok) {
-                    const result = await response.json();
-                    alert('Login successful!');
-                    window.location.href = '/store.html';
+  const result = await response.json();
+  localStorage.setItem('username', result.user.username);
+  localStorage.setItem('isAdmin', result.user.isAdmin ? 'true' : 'false');
+  alert('Login successful!');
+  window.location.href = '/store.html';
+
                 } else {
                     const error = await response.json();
                     alert('Login failed: ' + error.error);
@@ -42,10 +45,10 @@
     if (registerForm) {
         registerForm.onsubmit = async (e) => {
             e.preventDefault();
-            
+
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            
+
             if (password !== confirmPassword) {
                 alert('Passwords do not match!');
                 return;

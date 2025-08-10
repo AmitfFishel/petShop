@@ -1,12 +1,12 @@
 // Common functionality across all pages
-(function() {
+(function () {
     // Check authentication
     async function checkAuth() {
         try {
             const response = await fetch('/api/user', {
                 credentials: 'include'
             });
-            
+
             if (response.ok) {
                 const user = await response.json();
                 updateNavForUser(user);
@@ -23,9 +23,17 @@
         const userInfo = document.getElementById('userInfo');
         const logoutBtn = document.getElementById('logoutBtn');
         const loginLink = document.getElementById('loginLink');
-        
+
         if (user) {
             if (userInfo) userInfo.textContent = `Welcome, ${user.username}`;
+            if (user.isAdmin || localStorage.getItem('isAdmin') === 'true') {
+                const adminLink = document.getElementById('adminLink');
+                if (adminLink) adminLink.style.display = 'inline-block';
+                try {
+  const isAdminStored = localStorage.getItem('isAdmin') === 'true';
+  if (adminLink) adminLink.style.display = (user && (user.isAdmin || isAdminStored)) ? 'inline-block' : 'none';
+} catch (_) {}
+            }
             if (logoutBtn) {
                 logoutBtn.style.display = 'inline-block';
                 logoutBtn.onclick = logout;
@@ -41,7 +49,7 @@
                 method: 'POST',
                 credentials: 'include'
             });
-            
+
             if (response.ok) {
                 window.location.href = '/login.html';
             }
@@ -54,7 +62,7 @@
     function initTheme() {
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.body.className = savedTheme + '-theme';
-        
+
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
             themeToggle.onclick = () => {

@@ -101,6 +101,13 @@ const requireAdmin = async (req, res, next) => {
 app.post('/api/register', authModule.register);
 app.post('/api/login', authModule.login);
 app.post('/api/logout', requireAuth, authModule.logout);
+// Current user info
+app.get('/api/user', requireAuth, (req, res) => {
+  const user = req.user;
+  const isAdmin = String(user.username).toLowerCase() === 'admin';
+  res.json({ username: user.username, email: user.email, isAdmin });
+});
+
 
 // Routes - Store
 app.get('/api/products', storeModule.getProducts);

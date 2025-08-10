@@ -14,6 +14,7 @@
                 <a href="/index.html">Home</a>
                 <a href="/store.html">Store</a>
                 <a href="/cart.html">🛒 Cart <span id="cartCount">(0)</span></a>
+                <a href="/my-items.html">📦 My Purchases</a>
                 <a href="/admin.html" class="active">👨‍💼 Admin</a>
             </div>
             <div class="user-section">
@@ -29,15 +30,23 @@
     <main class="container">
         <div class="page-header">
             <h1>👨‍💼 Admin Dashboard</h1>
+            <p>Manage store activities and products</p>
         </div>
 
         <!-- Activity Monitoring Section -->
         <div class="admin-section">
             <h2>📊 User Activity Log</h2>
+            <p class="section-description">Monitor all user activities including login, logout, and add-to-cart events</p>
+            
             <div class="filter-section">
-                <input type="text" id="activityFilter" placeholder="Filter by username prefix...">
-                <button onclick="filterActivities()" class="btn">Filter</button>
-                <button onclick="exportActivities()" class="btn btn-secondary">Export CSV</button>
+                <label for="activityFilter">Filter by username (prefix):</label>
+                <input type="text" 
+                       id="activityFilter" 
+                       placeholder="Type username prefix (e.g., 'abc' for all users starting with abc)"
+                       onkeyup="filterActivities()">
+                <button onclick="clearFilter()" class="btn btn-secondary">Clear Filter</button>
+                <button onclick="refreshActivities()" class="btn">🔄 Refresh</button>
+                <button onclick="exportActivities()" class="btn btn-secondary">📥 Export CSV</button>
             </div>
             
             <div class="table-container">
@@ -46,70 +55,96 @@
                         <tr>
                             <th>DateTime</th>
                             <th>Username</th>
-                            <th>Activity Type</th>
+                            <th>Type of Activity</th>
                             <th>Details</th>
                         </tr>
                     </thead>
                     <tbody id="activitiesTableBody">
-                        <!-- Activities will be loaded here -->
+                        <tr>
+                            <td colspan="4" style="text-align: center;">Loading activities...</td>
+                        </tr>
                     </tbody>
                 </table>
+            </div>
+            
+            <div class="activity-stats">
+                <span>Total Activities: <strong id="totalActivities">0</strong></span>
+                <span>Filtered Results: <strong id="filteredCount">0</strong></span>
             </div>
         </div>
 
         <!-- Product Management Section -->
         <div class="admin-section">
             <h2>📦 Product Management</h2>
+            <p class="section-description">Add new products or remove existing ones from the store</p>
             
             <div class="product-form-section">
-                <h3>Add New Product</h3>
-                <form id="addProductForm" enctype="multipart/form-data">
+                <h3>➕ Add New Product</h3>
+                <form id="addProductForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="productName">Product Name:</label>
-                            <input type="text" id="productName" name="name" required>
+                            <label for="productName">Product Name: *</label>
+                            <input type="text" id="productName" name="name" required 
+                                   placeholder="e.g., Golden Retriever Puppy">
                         </div>
                         <div class="form-group">
-                            <label for="productCategory">Category:</label>
+                            <label for="productCategory">Category: *</label>
                             <select id="productCategory" name="category" required>
-                                <option value="Dogs">Dogs</option>
-                                <option value="Cats">Cats</option>
-                                <option value="Birds">Birds</option>
-                                <option value="Fish">Fish</option>
-                                <option value="Small Pets">Small Pets</option>
+                                <option value="">Select Category</option>
+                                <option value="Dogs">🐕 Dogs</option>
+                                <option value="Cats">🐈 Cats</option>
+                                <option value="Birds">🦜 Birds</option>
+                                <option value="Fish">🐠 Fish</option>
+                                <option value="Small Pets">🐹 Small Pets</option>
                             </select>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="productDescription">Description:</label>
-                        <textarea id="productDescription" name="description" rows="3" required></textarea>
+                        <label for="productDescription">Description: *</label>
+                        <textarea id="productDescription" name="description" rows="3" required
+                                  placeholder="Provide a detailed description of the pet..."></textarea>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="productPrice">Price ($):</label>
-                            <input type="number" id="productPrice" name="price" min="0" step="0.01" required>
+                            <label for="productPrice">Price ($): *</label>
+                            <input type="number" id="productPrice" name="price" 
+                                   min="0" step="0.01" required placeholder="299.99">
                         </div>
                         <div class="form-group">
-                            <label for="productStock">Stock:</label>
-                            <input type="number" id="productStock" name="stock" min="0" required>
+                            <label for="productStock">Stock Quantity: *</label>
+                            <input type="number" id="productStock" name="stock" 
+                                   min="0" required placeholder="10">
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="productImage">Image:</label>
+                        <label for="productImage">Product Image:</label>
                         <input type="file" id="productImage" name="image" accept="image/*">
-                        <small>Or provide image URL:</small>
-                        <input type="text" name="imageUrl" placeholder="https://example.com/image.jpg">
+                        <small>Or provide an image URL:</small>
+                        <input type="text" name="imageUrl" 
+                               placeholder="https://example.com/image.jpg">
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Add Product</button>
+                    <button type="reset" class="btn btn-secondary">Clear Form</button>
                 </form>
             </div>
 
             <div class="existing-products">
-                <h3>Existing Products</h3>
+                <h3>📋 Existing Products</h3>
+                <div class="products-controls">
+                    <select id="categoryFilter" onchange="filterProducts()">
+                        <option value="all">All Categories</option>
+                        <option value="Dogs">Dogs</option>
+                        <option value="Cats">Cats</option>
+                        <option value="Birds">Birds</option>
+                        <option value="Fish">Fish</option>
+                        <option value="Small Pets">Small Pets</option>
+                    </select>
+                    <span>Total Products: <strong id="productCount">0</strong></span>
+                </div>
                 <div id="productsManagement" class="products-management-list">
                     <!-- Products will be loaded here -->
                 </div>
