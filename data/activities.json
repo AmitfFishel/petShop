@@ -154,5 +154,59 @@
     "username": "admin",
     "type": "login",
     "details": {}
+  },
+  {
+    "datetime": "2025-08-10T10:59:41.799Z",
+    "username": "admin",
+    "type": "login",
+    "details": {}
+  },
+  {
+    "datetime": "2025-08-10T10:59:45.214Z",
+    "username": "admin",
+    "type": "logout",
+    "details": {}
+  },
+  {
+    "datetime": "2025-08-10T10:59:50.438Z",
+    "username": "talsherman70",
+    "type": "login",
+    "details": {}
+  },
+  {
+    "datetime": "2025-08-10T10:59:51.650Z",
+    "username": "talsherman70",
+    "type": "login",
+    "details": {}
+  },
+  {
+    "datetime": "2025-08-10T11:00:01.010Z",
+    "username": "talsherman70",
+    "type": "logout",
+    "details": {}
+  },
+  {
+    "datetime": "2025-08-10T11:00:44.523Z",
+    "username": "talsherman70",
+    "type": "login",
+    "details": {}
+  },
+  {
+    "datetime": "2025-08-10T11:00:51.135Z",
+    "username": "talsherman70",
+    "type": "add-to-cart",
+    "details": {
+      "productId": "pet-002",
+      "quantity": 1
+    }
+  },
+  {
+    "datetime": "2025-08-10T11:00:54.035Z",
+    "username": "talsherman70",
+    "type": "add-to-cart",
+    "details": {
+      "productId": "pet-003",
+      "quantity": 1
+    }
   }
 ]
