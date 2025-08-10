@@ -1,0 +1,81 @@
+[
+  {
+    "id": "pet-001",
+    "name": "Golden Retriever Puppy",
+    "description": "Friendly and loyal companion, 8 weeks old",
+    "price": 1200,
+    "category": "Dogs",
+    "image": "/images/golden-retriever.jpg",
+    "stock": 3,
+    "petInfo": {
+      "breed": "Golden Retriever",
+      "age": "8 weeks",
+      "weight": "5 kg",
+      "vaccinated": true,
+      "temperament": "Friendly, Intelligent, Devoted"
+    }
+  },
+  {
+    "id": "pet-002",
+    "name": "Persian Cat",
+    "description": "Beautiful long-haired cat, very calm",
+    "price": 800,
+    "category": "Cats",
+    "image": "/images/persian-cat.jpg",
+    "stock": 5,
+    "petInfo": {
+      "breed": "Persian",
+      "age": "12 weeks",
+      "weight": "2 kg",
+      "vaccinated": true,
+      "temperament": "Calm, Sweet, Gentle"
+    }
+  },
+  {
+    "id": "pet-003",
+    "name": "Tropical Fish Tank Set",
+    "description": "Complete aquarium with 10 tropical fish",
+    "price": 250,
+    "category": "Fish",
+    "image": "/images/fish-tank.jpg",
+    "stock": 10,
+    "petInfo": {
+      "species": "Mixed Tropical",
+      "tankSize": "50 gallons",
+      "included": "Tank, Filter, Heater, 10 Fish",
+      "difficulty": "Beginner"
+    }
+  },
+  {
+    "id": "pet-004",
+    "name": "Cockatiel",
+    "description": "Friendly bird, great for beginners",
+    "price": 150,
+    "category": "Birds",
+    "image": "/images/cockatiel.jpg",
+    "stock": 7,
+    "petInfo": {
+      "species": "Cockatiel",
+      "age": "6 months",
+      "wingspan": "30 cm",
+      "lifespan": "15-20 years",
+      "temperament": "Social, Playful"
+    }
+  },
+  {
+    "id": "pet-005",
+    "name": "Holland Lop Rabbit",
+    "description": "Small, friendly rabbit with floppy ears",
+    "price": 120,
+    "category": "Small Pets",
+    "image": "/images/holland-lop.jpg",
+    "stock": 8,
+    "petInfo": {
+      "breed": "Holland Lop",
+      "age": "10 weeks",
+      "weight": "1.5 kg",
+      "lifespan": "7-10 years",
+      "temperament": "Gentle, Friendly"
+    }
+  }
+]

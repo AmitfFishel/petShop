@@ -1,0 +1,11 @@
+[
+  {
+    "id": "admin-001",
+    "username": "admin",
+    "password": "$2b$10$PngddnRj0JPQNZClzMP72.oPm.SpZ54r9LaOvDokzTfAGFbNenk7C",
+    "email": "admin@petstore.com",
+    "cart": [],
+    "purchases": [],
+    "createdAt": "2025-08-06T09:52:37.980Z"
+  }
+]

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paws & Claws Pet Store</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav id="mainNav">
+        <div class="nav-container">
+            <h1>Paws & Claws Pet Store</h1>
+            <div class="nav-links">
+                <a href="/store.html">Store</a>
+                <a href="/cart.html">Cart <span id="cartCount">(0)</span></a>
+                <a href="/my-items.html">My Purchases</a>
+                <a href="/pet-care.html">Pet Care</a>
+                <a href="/adoption.html">Adoption</a>
+                <a href="/grooming.html">Grooming</a>
+                <span id="userInfo"></span>
+                <button id="logoutBtn" style="display:none;">Logout</button>
+                <a href="/login.html" id="loginLink">Login</a>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle">🌓</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2>Welcome to Paws & Claws!</h2>
+        <p>Your trusted source for pets and pet supplies</p>
+        
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search pets by name or description...">
+            <button id="searchBtn">Search</button>
+        </div>
+
+        <div id="productsGrid" class="products-grid">
+            <!-- Products will be loaded here -->
+        </div>
+    </main>
+
+    <script src="/js/common.js"></script>
+    <script src="/js/store.js"></script>
+</body>
+</html>
