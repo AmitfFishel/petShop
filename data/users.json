@@ -13,7 +13,16 @@
     "username": "talsherman70",
     "password": "$2b$10$2U.ar7Z66DjPuS7GabBa2e91amYfaYS1uCPKA.trTIDap.LTDuqm.",
     "email": "ts70xbox@gmail.com",
-    "cart": [],
+    "cart": [
+      {
+        "productId": "pet-002",
+        "quantity": 1
+      },
+      {
+        "productId": "pet-003",
+        "quantity": 1
+      }
+    ],
     "purchases": [
       {
         "id": "purchase-1754817945629",

@@ -84,8 +84,25 @@ const logout = async (req, res) => {
     }
 };
 
+// auth status endpoint
+const status = async (req, res) => {
+  try {
+    const token = req.cookies?.authToken;
+    if (!token) return res.json({ loggedIn: false, username: null });
+
+    const user = await persistModule.getUserByToken(token);
+    if (!user) return res.json({ loggedIn: false, username: null });
+
+    res.json({ loggedIn: true, username: user.username });
+  } catch (err) {
+    console.error('Status error:', err);
+    res.status(500).json({ loggedIn: false });
+  }
+};
+
 module.exports = {
     register,
     login,
-    logout
+    logout,
+    status   
 };

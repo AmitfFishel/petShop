@@ -30,9 +30,9 @@
                 const adminLink = document.getElementById('adminLink');
                 if (adminLink) adminLink.style.display = 'inline-block';
                 try {
-  const isAdminStored = localStorage.getItem('isAdmin') === 'true';
-  if (adminLink) adminLink.style.display = (user && (user.isAdmin || isAdminStored)) ? 'inline-block' : 'none';
-} catch (_) {}
+                    const isAdminStored = localStorage.getItem('isAdmin') === 'true';
+                    if (adminLink) adminLink.style.display = (user && (user.isAdmin || isAdminStored)) ? 'inline-block' : 'none';
+                } catch (_) { }
             }
             if (logoutBtn) {
                 logoutBtn.style.display = 'inline-block';
