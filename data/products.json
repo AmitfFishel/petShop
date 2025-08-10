@@ -79,17 +79,17 @@
     }
   },
   {
-    "id": "pet-1754823213920",
+    "id": "pet-1754827401423",
     "name": "Maine Coon cat",
-    "description": "A very big, yet tame cat.",
-    "price": 1500,
+    "description": "A very big Cat",
+    "price": 2000,
     "category": "Cats",
-    "stock": 4,
-    "image": "/images/placeholder.jpg",
+    "stock": 1,
+    "image": "/uploads/1754827401418-MAine-Coon-Giant.jpg",
     "petInfo": {
       "category": "Cats",
       "available": true
     },
-    "createdAt": "2025-08-10T10:53:33.920Z"
+    "createdAt": "2025-08-10T12:03:21.423Z"
   }
 ]
