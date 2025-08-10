@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Paws & Claws Pet Store</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav id="mainNav">
+        <div class="nav-container">
+            <h1>🐾 Paws & Claws Pet Store</h1>
+            <div class="nav-links">
+                <a href="/index.html">Home</a>
+                <a href="/store.html">Store</a>
+                <a href="/cart.html">🛒 Cart</a>
+            </div>
+            <div class="user-section">
+                <span id="userInfo"></span>
+                <button id="logoutBtn" class="btn btn-danger" style="display:none;">Logout</button>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle">🌓</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>💳 Payment Details</h1>
+        </div>
+
+        <div class="payment-container">
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div id="orderItems"></div>
+                <hr>
+                <h3 id="orderTotal">Total: $0</h3>
+            </div>
+
+            <div class="form-container">
+                <h2>Payment Information</h2>
+                <form id="paymentForm">
+                    <div class="form-group">
+                        <label for="cardName">Cardholder Name:</label>
+                        <input type="text" id="cardName" name="cardName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number:</label>
+                        <input type="text" id="cardNumber" name="cardNumber" 
+                               pattern="[0-9]{16}" maxlength="16" required
+                               placeholder="1234567812345678">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiryDate">Expiry Date:</label>
+                            <input type="text" id="expiryDate" name="expiryDate" 
+                                   pattern="[0-9]{2}/[0-9]{2}" maxlength="5" required
+                                   placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV:</label>
+                            <input type="text" id="cvv" name="cvv" 
+                                   pattern="[0-9]{3}" maxlength="3" required
+                                   placeholder="123">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        Complete Payment
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/common.js"></script>
+    <script>
+        // Payment page specific code
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkoutData = sessionStorage.getItem('checkoutData');
+            if (!checkoutData) {
+                window.location.href = '/cart.html';
+                return;
+            }
+
+            const data = JSON.parse(checkoutData);
+            const orderItems = document.getElementById('orderItems');
+            const orderTotal = document.getElementById('orderTotal');
+
+            data.items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'order-item';
+                div.innerHTML = `
+                    <p>${item.product.name} x ${item.quantity} - $${(item.product.price * item.quantity).toFixed(2)}</p>
+                `;
+                orderItems.appendChild(div);
+            });
+
+            orderTotal.textContent = `Total: $${data.total.toFixed(2)}`;
+
+            document.getElementById('paymentForm').onsubmit = async (e) => {
+                e.preventDefault();
+                
+                const formData = {
+                    cardName: document.getElementById('cardName').value,
+                    cardNumber: document.getElementById('cardNumber').value,
+                    expiryDate: document.getElementById('expiryDate').value,
+                    cvv: document.getElementById('cvv').value
+                };
+
+                try {
+                    const response = await fetch('/api/payment', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData),
+                        credentials: 'include'
+                    });
+
+                    if (response.ok) {
+                        sessionStorage.removeItem('checkoutData');
+                        window.location.href = '/thank-you.html';
+                    } else {
+                        alert('Payment failed. Please try again.');
+                    }
+                } catch (err) {
+                    alert('Payment error. Please try again.');
+                }
+            };
+        });
+    </script>
+</body>
+</html>

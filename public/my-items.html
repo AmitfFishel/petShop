@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Purchases - Paws & Claws Pet Store</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav id="mainNav">
+        <div class="nav-container">
+            <h1>🐾 Paws & Claws Pet Store</h1>
+            <div class="nav-links">
+                <a href="/index.html">Home</a>
+                <a href="/store.html">Store</a>
+                <div class="dropdown">
+                    <a href="#" class="dropbtn">Categories ▼</a>
+                    <div class="dropdown-content">
+                        <a href="/categories/dogs.html">🐕 Dogs</a>
+                        <a href="/categories/cats.html">🐈 Cats</a>
+                        <a href="/categories/birds.html">🦜 Birds</a>
+                        <a href="/categories/fish.html">🐠 Fish</a>
+                        <a href="/categories/small-pets.html">🐹 Small Pets</a>
+                    </div>
+                </div>
+                <a href="/cart.html">🛒 Cart <span id="cartCount">(0)</span></a>
+                <a href="/my-items.html" class="active">📦 My Purchases</a>
+                <a href="/admin.html" id="adminLink" style="display:none;">👨‍💼 Admin</a>
+            </div>
+            <div class="user-section">
+                <span id="userInfo"></span>
+                <button id="logoutBtn" class="btn btn-danger" style="display:none;">Logout</button>
+                <a href="/login.html" id="loginLink" class="btn">Login</a>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle">🌓</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>📦 My Purchase History</h1>
+        </div>
+
+        <div id="purchasesContainer" class="purchases-container">
+            <!-- Purchases will be loaded here -->
+        </div>
+    </main>
+
+    <script src="/js/common.js"></script>
+    <script>
+        // Load purchases
+        async function loadPurchases() {
+            try {
+                const response = await fetch('/api/purchases', {
+                    credentials: 'include'
+                });
+
+                if (response.status === 401) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                if (response.ok) {
+                    const purchases = await response.json();
+                    displayPurchases(purchases);
+                }
+            } catch (err) {
+                console.error('Failed to load purchases:', err);
+            }
+        }
+
+        function displayPurchases(purchases) {
+            const container = document.getElementById('purchasesContainer');
+            
+            if (purchases.length === 0) {
+                container.innerHTML = '<p>You haven\'t made any purchases yet.</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            purchases.forEach(purchase => {
+                const purchaseDiv = document.createElement('div');
+                purchaseDiv.className = 'purchase-card';
+                
+                const date = new Date(purchase.date).toLocaleDateString();
+                let itemsHtml = '';
+                purchase.items.forEach(item => {
+                    itemsHtml += `<li>${item.productName} x ${item.quantity} - $${(item.price * item.quantity).toFixed(2)}</li>`;
+                });
+
+                purchaseDiv.innerHTML = `
+                    <div class="purchase-header">
+                        <h3>Order #${purchase.id}</h3>
+                        <span>${date}</span>
+                    </div>
+                    <ul class="purchase-items">
+                        ${itemsHtml}
+                    </ul>
+                    <div class="purchase-total">
+                        <strong>Total: $${purchase.total.toFixed(2)}</strong>
+                    </div>
+                `;
+                container.appendChild(purchaseDiv);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadPurchases);
+    </script>
+</body>
+</html>

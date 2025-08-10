@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Paws & Claws Pet Store</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav id="mainNav">
+        <div class="nav-container">
+            <h1>🐾 Paws & Claws Pet Store</h1>
+            <div class="nav-links">
+                <a href="/index.html">Home</a>
+                <a href="/store.html">Store</a>
+                <div class="dropdown">
+                    <a href="#" class="dropbtn">Categories ▼</a>
+                    <div class="dropdown-content">
+                        <a href="/categories/dogs.html">🐕 Dogs</a>
+                        <a href="/categories/cats.html">🐈 Cats</a>
+                        <a href="/categories/birds.html">🦜 Birds</a>
+                        <a href="/categories/fish.html">🐠 Fish</a>
+                        <a href="/categories/small-pets.html">🐹 Small Pets</a>
+                    </div>
+                </div>
+                <a href="/cart.html" class="active">🛒 Cart <span id="cartCount">(0)</span></a>
+                <a href="/my-items.html">📦 My Purchases</a>
+                <a href="/admin.html" id="adminLink" style="display:none;">👨‍💼 Admin</a>
+            </div>
+            <div class="user-section">
+                <span id="userInfo"></span>
+                <button id="logoutBtn" class="btn btn-danger" style="display:none;">Logout</button>
+                <a href="/login.html" id="loginLink" class="btn">Login</a>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle">🌓</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>🛒 Your Shopping Cart</h1>
+        </div>
+
+        <div class="cart-container">
+            <div id="cartItems" class="cart-items">
+                <!-- Cart items will be loaded here -->
+            </div>
+
+            <div class="cart-summary">
+                <h2 id="cartTotal">Total: $0</h2>
+                <button id="checkoutBtn" onclick="proceedToCheckout()" class="btn btn-primary btn-lg" disabled>
+                    Proceed to Checkout
+                </button>
+                <a href="/store.html" class="btn btn-secondary">Continue Shopping</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/common.js"></script>
+    <script src="/js/cart.js"></script>
+</body>
+</html>

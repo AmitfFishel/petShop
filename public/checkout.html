@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Paws & Claws Pet Store</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav id="mainNav">
+        <div class="nav-container">
+            <h1>🐾 Paws & Claws Pet Store</h1>
+            <div class="nav-links">
+                <a href="/index.html">Home</a>
+                <a href="/store.html">Store</a>
+                <a href="/cart.html">🛒 Cart</a>
+            </div>
+            <div class="user-section">
+                <span id="userInfo"></span>
+                <button id="logoutBtn" class="btn btn-danger" style="display:none;">Logout</button>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle">🌓</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Checkout</h1>
+        </div>
+
+        <div class="checkout-container">
+            <h2>Order Summary</h2>
+            <div id="checkoutItems"></div>
+            <hr>
+            <h3 id="checkoutTotal">Total: $0</h3>
+            <button onclick="proceedToPayment()" class="btn btn-primary btn-lg">Proceed to Payment</button>
+        </div>
+    </main>
+
+    <script src="/js/common.js"></script>
+    <script>
+        // This page is optional - you can go directly from cart to payment
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkoutData = sessionStorage.getItem('checkoutData');
+            if (checkoutData) {
+                const data = JSON.parse(checkoutData);
+                // Display checkout summary
+            } else {
+                // If no checkout data, redirect to cart
+                window.location.href = '/cart.html';
+            }
+        });
+
+        function proceedToPayment() {
+            window.location.href = '/payment.html';
+        }
+    </script>
+</body>
+</html>

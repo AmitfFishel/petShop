@@ -1,0 +1,39 @@
+[
+  {
+    "id": "admin-001",
+    "username": "admin",
+    "password": "$2b$10$PngddnRj0JPQNZClzMP72.oPm.SpZ54r9LaOvDokzTfAGFbNenk7C",
+    "email": "admin@petstore.com",
+    "cart": [],
+    "purchases": [],
+    "createdAt": "2025-08-06T09:52:37.980Z"
+  },
+  {
+    "id": "user-1754815174252",
+    "username": "talsherman70",
+    "password": "$2b$10$2U.ar7Z66DjPuS7GabBa2e91amYfaYS1uCPKA.trTIDap.LTDuqm.",
+    "email": "ts70xbox@gmail.com",
+    "cart": [],
+    "purchases": [
+      {
+        "id": "purchase-1754817945629",
+        "items": [
+          {
+            "productId": "pet-001",
+            "productName": "Golden Retriever Puppy",
+            "price": 1200,
+            "quantity": 1
+          }
+        ],
+        "total": 1200,
+        "paymentDetails": {
+          "cardNumber": "5456",
+          "cardName": "tal",
+          "expiryDate": "11/22"
+        },
+        "date": "2025-08-10T09:25:45.629Z"
+      }
+    ],
+    "createdAt": "2025-08-10T08:39:34.253Z"
+  }
+]

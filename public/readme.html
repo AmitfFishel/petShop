@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>README - Furry Friends Pet Store</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🐾 Furry Friends</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="store.html" class="nav-link">Store</a>
+                <a href="readme.html" class="nav-link active">README</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="readme-content">
+                <h1>🐾 Furry Friends Pet Store - README</h1>
+                
+                <section class="readme-section">
+                    <h2>Store Information</h2>
+                    <p><strong>Store Name:</strong> Furry Friends Pet Store</p>
+                    <p><strong>What we're selling:</strong> We specialize in selling live pets including dogs, cats, parrots, and rabbits. Each pet comes with health certificates, vaccination records, and a care package with essential supplies.</p>
+                </section>
+
+                <section class="readme-section">
+                    <h2>Additional Pages Implemented</h2>
+                    <p>Beyond the required functionality, I implemented the following additional pages:</p>
+                    
+                    <div class="additional-pages">
+                        <div class="page-item">
+                            <h3>1. Pet Information Page (pet-info.html)</h3>
+                            <p><strong>Purpose:</strong> Detailed information about each individual pet including comprehensive care instructions.</p>
+                            <p><strong>How to operate:</strong> Click "Pet Info" button on any pet in the store or category pages. Shows detailed care information for diet, housing, health, exercise, grooming, and social needs specific to the pet type.</p>
+                        </div>
+                        
+                        <div class="page-item">
+                            <h3>2. Category Pages (category.html)</h3>
+                            <p><strong>Purpose:</strong> Dedicated pages for each pet category (dogs, cats, parrots, rabbits) with category-specific information.</p>
+                            <p><strong>How to operate:</strong> Click on category cards from the home page or use category filters in the store. Each category page shows only pets of that type with relevant category description.</p>
+                        </div>
+                        
+                        <div class="page-item">
+                            <h3>3. Thank You Page (thank-you.html)</h3>
+                            <p><strong>Purpose:</strong> Post-purchase confirmation page with order details and next steps.</p>
+                            <p><strong>How to operate:</strong> Automatically redirected here after successful payment. Shows purchase ID, total amount, and information about delivery and care packages.</p>
+                        </div>
+                        
+                        <div class="page-item">
+                            <h3>4. Registration Page (register.html)</h3>
+                            <p><strong>Purpose:</strong> User registration with form validation and error handling.</p>
+                            <p><strong>How to operate:</strong> Fill out username (min 3 chars), email, and password (min 6 chars). Includes password confirmation and redirects to login after successful registration.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="readme-section">
+                    <h2>Challenges & Difficulties</h2>
+                    <p>The most challenging aspects of this project were:</p>
+                    <ul>
+                        <li><strong>Cookie Management:</strong> Implementing proper cookie expiration for "remember me" functionality (12 days vs 30 minutes) and ensuring cookies work correctly across all pages.</li>
+                        <li><strong>File Upload Handling:</strong> Setting up multer for image uploads in the admin panel while also supporting URL-based images as fallback.</li>
+                        <li><strong>Data Persistence:</strong> Designing a file-based storage system that maintains data integrity across server restarts without using a traditional database.</li>
+                        <li><strong>DOS Protection:</strong> Implementing rate limiting middleware that tracks requests per IP address and resets counters appropriately.</li>
+                        <li><strong>Error Handling:</strong> Creating comprehensive async error handling throughout all modules while maintaining user-friendly error messages.</li>
+                    </ul>
+                </section>
+
+                <section class="readme-section">
+                    <h2>Team Information</h2>
+                    <p><strong>Partner:</strong> [Partner Name] - ID: [Partner ID]</p>
+                    <p><strong>My Responsibilities:</strong></p>
+                    <ul>
+                        <li>Frontend HTML/CSS/JavaScript development</li>
+                        <li>Authentication system (auth-server.js)</li>
+                        <li>Shopping cart functionality (cart-server.js)</li>
+                        <li>Data persistence module (persist_module.js)</li>
+                        <li>Pet information system (pet-info-server.js)</li>
+                    </ul>
+                    <p><strong>Partner's Responsibilities:</strong></p>
+                    <ul>
+                        <li>Store server logic (store-server.js)</li>
+                        <li>Checkout and payment processing (checkout-server.js)</li>
+                        <li>Admin panel functionality (admin-server.js)</li>
+                        <li>Main server setup and routing (server.js)</li>
+                        <li>Testing suite (test.js)</li>
+                    </ul>
+                </section>
+
+                <section class="readme-section">
+                    <h2>Routes Supported</h2>
+                    <div class="routes-table">
+                        <h3>Static Routes:</h3>
+                        <ul>
+                            <li><code>GET /</code> - Home page (index.html)</li>
+                            <li><code>GET /readme.html</code> - This README page</li>
+                            <li><code>GET /llm.html</code> - LLM usage documentation</li>
+                        </ul>
+
+                        <h3>Authentication Routes:</h3>
+                        <ul>
+                            <li><code>POST /api/register</code> - User registration</li>
+                            <li><code>POST /api/login</code> - User login with remember me option</li>
+                            <li><code>POST /api/logout</code> - User logout</li>
+                            <li><code>GET /api/check-auth</code> - Check authentication status</li>
+                        </ul>
+
+                        <h3>Store Routes:</h3>
+                        <ul>
+                            <li><code>GET /api/products</code> - Get all products (with optional search)</li>
+                            <li><code>GET /api/products/category/:category</code> - Get products by category</li>
+                            <li><code>GET /api/products/:id</code> - Get single product details</li>
+                        </ul>
+
+                        <h3>Cart Routes:</h3>
+                        <ul>
+                            <li><code>GET /api/cart</code> - Get user's cart contents</li>
+                            <li><code>POST /api/cart</code> - Add item to cart</li>
+                            <li><code>DELETE /api/cart/:productId</code> - Remove item from cart</li>
+                        </ul>
+
+                        <h3>Checkout Routes:</h3>
+                        <ul>
+                            <li><code>POST /api/checkout</code> - Process payment and complete purchase</li>
+                            <li><code>GET /api/purchases</code> - Get user's purchase history</li>
+                        </ul>
+
+                        <h3>Admin Routes:</h3>
+                        <ul>
+                            <li><code>GET /api/admin/activities</code> - Get user activity logs (with optional filter)</li>
+                            <li><code>POST /api/admin/products</code> - Add new product (admin only)</li>
+                            <li><code>DELETE /api/admin/products/:id</code> - Delete product (admin only)</li>
+                        </ul>
+
+                        <h3>Additional Routes:</h3>
+                        <ul>
+                            <li><code>GET /api/pet-info/:category</code> - Get pet care information by category</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="readme-section">
+                    <h2>Testing Approach</h2>
+                    <p>The application was tested using the following methods:</p>
+                    <ul>
+                        <li><strong>Automated Testing:</strong> test.js file contains comprehensive route testing using node-fetch to verify all API endpoints</li>
+                        <li><strong>Manual Testing:</strong> Each user flow was tested manually including registration, login, shopping, cart management, checkout, and admin functions</li>
+                        <li><strong>Error Testing:</strong> Tested various error conditions including invalid logins, empty carts, unauthorized access, and network failures</li>
+                        <li><strong>Cross-browser Testing:</strong> Verified functionality across Chrome, Firefox, and Safari</li>
+                        <li><strong>Cookie Testing:</strong> Verified "remember me" functionality with different expiration times</li>
+                        <li><strong>File Upload Testing:</strong> Tested image uploads and URL-based images in admin panel</li>
+                        <li><strong>DOS Protection Testing:</strong> Verified rate limiting works correctly under high request volumes</li>
+                    </ul>
+                </section>
+
+                <section class="readme-section">
+                    <h2>Features Implemented</h2>
+                    <ul>
+                        <li>✅ User registration and login with password hashing</li>
+                        <li>✅ Remember me functionality (12 days vs 30 minutes)</li>
+                        <li>✅ Admin user (admin/admin) with special privileges</li>

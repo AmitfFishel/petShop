@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Information - Paws & Claws Pet Store</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav id="mainNav">
+        <div class="nav-container">
+            <h1>🐾 Paws & Claws Pet Store</h1>
+            <div class="nav-links">
+                <a href="/index.html">Home</a>
+                <a href="/store.html">Store</a>
+                <a href="/cart.html">🛒 Cart <span id="cartCount">(0)</span></a>
+                <a href="/my-items.html">📦 My Purchases</a>
+            </div>
+            <div class="user-section">
+                <span id="userInfo"></span>
+                <button id="logoutBtn" class="btn btn-danger" style="display:none;">Logout</button>
+                <a href="/login.html" id="loginLink" class="btn">Login</a>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle">🌓</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div id="petInfoContainer" class="pet-info-container">
+            <!-- Pet info will be loaded here -->
+        </div>
+    </main>
+
+    <script src="/js/common.js"></script>
+    <script>
+        // Get pet ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const petId = urlParams.get('id');
+
+        async function loadPetInfo() {
+            if (!petId) {
+                window.location.href = '/store.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/pets/${petId}/info`);
+                if (response.ok) {
+                    const pet = await response.json();
+                    displayPetInfo(pet);
+                } else {
+                    alert('Pet not found');
+                    window.location.href = '/store.html';
+                }
+            } catch (err) {
+                console.error('Error loading pet info:', err);
+            }
+        }
+
+        function displayPetInfo(pet) {
+            const container = document.getElementById('petInfoContainer');
+            
+            const petInfoHtml = pet.petInfo ? Object.entries(pet.petInfo).map(([key, value]) => 
+                `<li><strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${value}</li>`
+            ).join('') : '';
+
+            const relatedHtml = pet.relatedProducts && pet.relatedProducts.length > 0 ? 
+                pet.relatedProducts.map(p => `
+                    <div class="related-product">
+                        <img src="${p.image || '/images/placeholder.jpg'}" alt="${p.name}">
+                        <h4>${p.name}</h4>
+                        <p>$${p.price}</p>
+                        <a href="/pet-info.html?id=${p.id}" class="btn btn-sm">View</a>
+                    </div>
+                `).join('') : '<p>No related pets available</p>';
+
+            container.innerHTML = `
+                <div class="pet-info-main">
+                    <img src="${pet.image || '/images/placeholder.jpg'}" alt="${pet.name}" class="pet-info-image">
+                    <div class="pet-details">
+                        <h1>${pet.name}</h1>
+                        <p class="pet-description">${pet.description}</p>
+                        <div class="price-tag">$${pet.price}</div>
+                        <p class="stock-info">Available: ${pet.stock} in stock</p>
+                        
+                        <div class="pet-specifications">
+                            <h3>Specifications</h3>
+                            <ul class="pet-details-list">
+                                ${petInfoHtml}
+                            </ul>
+                        </div>
+                        
+                        <div class="pet-care">
+                            <h3>Care Instructions</h3>
+                            <p>${pet.careInstructions}</p>
+                        </div>
+                        
+                        <button onclick="addToCart('${pet.id}')" class="btn btn-primary btn-lg">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="related-products">
+                    <h3>Similar Pets You Might Like</h3>
+                    <div class="related-products-grid">
+                        ${relatedHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Add to cart function
+        window.addToCart = async function(productId) {
+            try {
+                const response = await fetch('/api/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId, quantity: 1 }),
+                    credentials: 'include'
+                });
+
+                if (response.status === 401) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                if (response.ok) {
+                    alert('Added to cart!');
+                    // Update cart count
+                    const cartResponse = await fetch('/api/cart', {
+                        credentials: 'include'
+                    });
+                    if (cartResponse.ok) {
+                        const cart = await cartResponse.json();
+                        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+                        const cartCount = document.getElementById('cartCount');
+                        if (cartCount) {
+                            cartCount.textContent = `(${count})`;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error('Error adding to cart:', err);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', loadPetInfo);
+    </script>
+</body>
+</html>

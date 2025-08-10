@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store - Paws & Claws Pet Store</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav id="mainNav">
+        <div class="nav-container">
+            <h1>🐾 Paws & Claws Pet Store</h1>
+            <div class="nav-links">
+                <a href="/index.html">Home</a>
+                <a href="/store.html" class="active">Store</a>
+                <div class="dropdown">
+                    <a href="#" class="dropbtn">Categories ▼</a>
+                    <div class="dropdown-content">
+                        <a href="/categories/dogs.html">🐕 Dogs</a>
+                        <a href="/categories/cats.html">🐈 Cats</a>
+                        <a href="/categories/birds.html">🦜 Birds</a>
+                        <a href="/categories/fish.html">🐠 Fish</a>
+                        <a href="/categories/small-pets.html">🐹 Small Pets</a>
+                    </div>
+                </div>
+                <a href="/cart.html">🛒 Cart <span id="cartCount">(0)</span></a>
+                <a href="/my-items.html">📦 My Purchases</a>
+                <a href="/pet-care.html">💊 Pet Care</a>
+                <a href="/adoption.html">🏠 Adoption</a>
+                <a href="/grooming.html">✂️ Grooming</a>
+                <a href="/admin.html" id="adminLink" style="display:none;">👨‍💼 Admin</a>
+            </div>
+            <div class="user-section">
+                <span id="userInfo"></span>
+                <button id="logoutBtn" class="btn btn-danger" style="display:none;">Logout</button>
+                <a href="/login.html" id="loginLink" class="btn">Login</a>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle">🌓</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Our Pet Store</h1>
+            <p>Find your perfect companion from our wide selection of pets!</p>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search pets by name or description...">
+            <button id="searchBtn" class="btn">🔍 Search</button>
+        </div>
+
+        <div class="category-buttons">
+            <button onclick="filterByCategory('all')" class="category-btn active">All Pets</button>
+            <button onclick="filterByCategory('Dogs')" class="category-btn">🐕 Dogs</button>
+            <button onclick="filterByCategory('Cats')" class="category-btn">🐈 Cats</button>
+            <button onclick="filterByCategory('Birds')" class="category-btn">🦜 Birds</button>
+            <button onclick="filterByCategory('Fish')" class="category-btn">🐠 Fish</button>
+            <button onclick="filterByCategory('Small Pets')" class="category-btn">🐹 Small Pets</button>
+        </div>
+
+        <div id="productsGrid" class="products-grid">
+            <!-- Products will be loaded here -->
+        </div>
+    </main>
+
+    <script src="/js/common.js"></script>
+    <script src="/js/store.js"></script>
+</body>
+</html>
