@@ -4,17 +4,24 @@ const processCheckout = async (req, res) => {
     try {
         const cart = await persistModule.getCart(req.user.username);
         
-        if (cart.length === 0) {
+        if (!cart || cart.length === 0) {
             return res.status(400).json({ error: 'Cart is empty' });
         }
         
+        // Filter out any invalid items
+        const validItems = cart.filter(item => item.product);
+        
+        if (validItems.length === 0) {
+            return res.status(400).json({ error: 'No valid items in cart' });
+        }
+        
         // Calculate total
-        const total = cart.reduce((sum, item) => {
+        const total = validItems.reduce((sum, item) => {
             return sum + (item.product.price * item.quantity);
         }, 0);
         
         res.json({
-            items: cart,
+            items: validItems,
             total,
             message: 'Ready for payment'
         });
@@ -36,12 +43,15 @@ const processPayment = async (req, res) => {
         // Get cart items
         const cart = await persistModule.getCart(req.user.username);
         
-        if (cart.length === 0) {
+        if (!cart || cart.length === 0) {
             return res.status(400).json({ error: 'Cart is empty' });
         }
         
+        // Filter valid items
+        const validItems = cart.filter(item => item.product);
+        
         // Create purchase record
-        const purchaseItems = cart.map(item => ({
+        const purchaseItems = validItems.map(item => ({
             productId: item.product.id,
             productName: item.product.name,
             price: item.product.price,
@@ -71,7 +81,7 @@ const processPayment = async (req, res) => {
 const getPurchases = async (req, res) => {
     try {
         const purchases = await persistModule.getPurchases(req.user.username);
-        res.json(purchases);
+        res.json(purchases || []);
     } catch (err) {
         console.error('Error getting purchases:', err);
         res.status(500).json({ error: 'Failed to get purchases' });

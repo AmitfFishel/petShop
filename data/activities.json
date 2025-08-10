@@ -85,5 +85,20 @@
     "username": "talsherman70",
     "type": "login",
     "details": {}
+  },
+  {
+    "datetime": "2025-08-10T09:49:48.205Z",
+    "username": "talsherman70",
+    "type": "login",
+    "details": {}
+  },
+  {
+    "datetime": "2025-08-10T09:50:06.247Z",
+    "username": "talsherman70",
+    "type": "add-to-cart",
+    "details": {
+      "productId": "pet-002",
+      "quantity": 1
+    }
   }
 ]

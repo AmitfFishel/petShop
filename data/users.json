@@ -32,6 +32,24 @@
           "expiryDate": "11/22"
         },
         "date": "2025-08-10T09:25:45.629Z"
+      },
+      {
+        "id": "purchase-1754819423281",
+        "items": [
+          {
+            "productId": "pet-002",
+            "productName": "Persian Cat",
+            "price": 800,
+            "quantity": 1
+          }
+        ],
+        "total": 800,
+        "paymentDetails": {
+          "cardNumber": "1561",
+          "cardName": "tatatataia",
+          "expiryDate": "11/22"
+        },
+        "date": "2025-08-10T09:50:23.281Z"
       }
     ],
     "createdAt": "2025-08-10T08:39:34.253Z"
